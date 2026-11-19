@@ -1,5 +1,3 @@
-"use client";
-
 import { Children, useEffect, useRef, useState, type ReactNode } from "react";
 import styles from "./Carousel.module.scss";
 

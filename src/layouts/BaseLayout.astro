@@ -1,0 +1,49 @@
+---
+import type { Seo } from "@/types/content";
+import { getSettings } from "@/lib/content";
+import { SiteFooter } from "@/components/navigation/SiteFooter";
+import { SiteHeader } from "@/components/navigation/SiteHeader";
+import "@/styles/main.scss";
+
+type Props = { title?: string; seo?: Seo };
+const { title, seo = {} } = Astro.props;
+
+const settings = await getSettings();
+const DEFAULT_DESCRIPTION =
+  "Sundial is a human connections company, powered by brands and communities that create meaningful cultural connection.";
+
+const pageTitle = seo.title ?? (title && title !== settings.name ? `${title} · Sundial` : settings.name);
+const description = seo.description ?? DEFAULT_DESCRIPTION;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = seo.image ? new URL(seo.image.src, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {seo.noIndex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={settings.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+  </head>
+  <body>
+    <SiteHeader client:load nav={settings.nav} primaryAction={settings.primaryAction} socials={settings.socials} pathname={Astro.url.pathname} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter nav={settings.nav} socials={settings.socials} footer={settings.footer} tagline={settings.tagline} />
+    <script>
+      import "@/scripts/reveal";
+    </script>
+  </body>
+</html>

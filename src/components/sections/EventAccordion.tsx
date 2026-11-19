@@ -1,5 +1,3 @@
-"use client";
-
 import { useId, useState } from "react";
 import type { Experience } from "@/types/content";
 import { MediaFrame } from "@/components/ui/MediaFrame";

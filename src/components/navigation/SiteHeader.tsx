@@ -1,28 +1,23 @@
-"use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { SiteSettings } from "@/types/content";
 import { Logo } from "@/components/brand/Logo";
 import { CtaLink } from "@/components/ui/CtaLink";
 import styles from "./SiteHeader.module.scss";
 
-type Props = Pick<SiteSettings, "nav" | "primaryAction" | "socials">;
+type Props = Pick<SiteSettings, "nav" | "primaryAction" | "socials"> & { pathname: string };
 
 /**
  * Fixed header. Turns light over any section marked `data-tone="dark"`,
  * gets a solid ground once scrolled, and hides while scrolling down.
  */
-export function SiteHeader({ nav, primaryAction, socials }: Props) {
-  const pathname = usePathname();
+export function SiteHeader({ nav, primaryAction, socials, pathname }: Props) {
   const ref = useRef<HTMLElement>(null);
   const [light, setLight] = useState(false);
   const [solid, setSolid] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const isCurrent = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const isCurrent = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`));
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -49,7 +44,7 @@ export function SiteHeader({ nav, primaryAction, socials }: Props) {
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(raf);
     };
-  }, [pathname]);
+  }, []);
 
   const setMenu = useCallback((on: boolean) => {
     setOpen(on);
@@ -70,21 +65,21 @@ export function SiteHeader({ nav, primaryAction, socials }: Props) {
   return (
     <>
       <header ref={ref} className={cls}>
-        <Link href="/" aria-label="Sundial home" className={styles.home}>
+        <a href="/" aria-label="Sundial home" className={styles.home}>
           <Logo />
-        </Link>
+        </a>
         <nav className={styles.links} aria-label="Main">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+            <a key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
         <div className={styles.actions}>
-          <Link href={primaryAction.href} className={styles.primary}>
+          <a href={primaryAction.href} className={styles.primary}>
             {primaryAction.label}
             <span aria-hidden>↗</span>
-          </Link>
+          </a>
           <button type="button" className={styles.menuButton} aria-expanded={open} aria-controls="site-menu" onClick={() => setMenu(true)}>
             Menu
           </button>
@@ -100,18 +95,18 @@ export function SiteHeader({ nav, primaryAction, socials }: Props) {
         aria-hidden={!open}
       >
         <div className={styles.menuTop}>
-          <Link href="/" aria-label="Sundial home" className={styles.home}>
+          <a href="/" aria-label="Sundial home" className={styles.home}>
             <Logo />
-          </Link>
+          </a>
           <button type="button" onClick={() => setMenu(false)}>
             Close
           </button>
         </div>
         <nav className={styles.menuNav} aria-label="Mobile" onClick={(e) => (e.target as HTMLElement).closest("a") && setMenu(false)}>
           {[{ label: "Home", href: "/" }, ...nav].map((item, i) => (
-            <Link key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+            <a key={item.href} href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
               {item.label} <small>{String(i + 1).padStart(2, "0")}</small>
-            </Link>
+            </a>
           ))}
         </nav>
         <div className={styles.menuBottom}>

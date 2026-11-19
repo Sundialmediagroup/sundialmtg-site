@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Product } from "@/types/content";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Reveal } from "@/components/ui/Reveal";
@@ -18,7 +17,7 @@ export function Capabilities({ eyebrow, heading, products }: Props) {
           <article key={p.id} className={styles.item}>
             <span className={styles.index}>{String(i + 1).padStart(2, "0")}</span>
             <h3 className={styles.name}>
-              <Link href={`/products#${p.slug}`}>{p.name}</Link>
+              <a href={`/products/#${p.slug}`}>{p.name}</a>
             </h3>
             <p className={styles.tagline}>{p.tagline}</p>
             <p className={styles.summary}>{p.summary}</p>

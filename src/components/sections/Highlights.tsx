@@ -18,7 +18,7 @@ export function Highlights({ eyebrow, heading, intro, items }: Props) {
       </div>
       <div className={styles.pair}>
         {items.map((c) => (
-          <ArticleCard key={c.id} kicker={c.kicker} title={c.title} excerpt={c.excerpt} media={c.hero} href={`/our-work#${c.slug}`} />
+          <ArticleCard key={c.id} kicker={c.kicker} title={c.title} excerpt={c.excerpt} media={c.hero} href={`/our-work/#${c.slug}`} />
         ))}
       </div>
     </section>

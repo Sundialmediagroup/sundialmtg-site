@@ -15,21 +15,14 @@
   @include mq(md) { grid-template-columns: 1fr 1fr; }
 }
 
-.cols {
-  display: flex;
-  gap: clamp(24px, 4vw, 60px);
-  &:last-child { justify-self: end; text-align: right; }
-}
-
 .list {
   display: grid;
   gap: 6px;
-  align-content: start;
   @include type(label);
   a { transition: color duration(fast); @include hover { color: color(accent); } }
 }
 
-.heading { color: color(mute-on-dark); margin-bottom: 4px; }
+.end { justify-self: end; text-align: right; }
 
 .emblem {
   width: clamp(130px, 15vw, 250px);
@@ -46,9 +39,6 @@
   display: flex;
   justify-content: space-between;
   gap: space(4);
-  flex-wrap: wrap;
   margin-top: 14px;
   @include type(label);
 }
-
-.legal { display: flex; gap: space(4); flex-wrap: wrap; }

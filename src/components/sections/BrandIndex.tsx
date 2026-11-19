@@ -1,6 +1,3 @@
-"use client";
-
-import Link from "next/link";
 import { useState } from "react";
 import type { Media } from "@/types/content";
 import styles from "./BrandIndex.module.scss";
@@ -25,13 +22,12 @@ export function BrandIndex({ heading, entries }: Props) {
                   {e.name}
                 </a>
               ) : (
-                <Link href={e.href}>{e.name}</Link>
+                <a href={e.href}>{e.name}</a>
               )}
             </li>
           ))}
         </ul>
         <div className={styles.logo} aria-hidden>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           {current && <img src={current.logo.src} alt="" />}
         </div>
       </div>

@@ -1,0 +1,20 @@
+---
+import type { Section } from "@/types/content";
+import { getBrands, getCaseStudies, getExperiences, getPage, getProducts } from "@/lib/content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Styleguide } from "@/components/styleguide/Styleguide";
+
+const [brands, experiences, products, caseStudies, home] = await Promise.all([
+  getBrands(),
+  getExperiences(),
+  getProducts(),
+  getCaseStudies(),
+  getPage("index"),
+]);
+// Reuse the home page's format list as demo data.
+const formatList = home.sections.find((s): s is Extract<Section, { type: "formatList" }> => s.type === "formatList");
+---
+
+<BaseLayout title="Styleguide" seo={{ noIndex: true }}>
+  <Styleguide client:load brands={brands} experiences={experiences} products={products} caseStudies={caseStudies} formats={formatList?.items ?? []} />
+</BaseLayout>

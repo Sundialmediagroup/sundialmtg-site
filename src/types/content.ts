@@ -1,13 +1,13 @@
 /**
  * SMG Website content model (SUN-1124).
  *
- * The contract between NovaCMS and the frontend. Shapes follow the proposed
- * sitemap:
+ * The contract between the Markdown/YAML content in `src/content/` and the
+ * components. Shapes follow the proposed sitemap:
  *   Home · Products · Brands · Experiences · Our Work · Insights · About · Partner With Us · Footer
  *
- * Keep these aligned with e360-api (Nova) types. The MVP reads from an
- * independent Nova instance via `src/lib/cms`; nothing else should import
- * raw CMS payloads.
+ * The Zod schemas in `src/content.config.ts` validate the files at build time;
+ * `src/lib/content.ts` maps entries to these types. Nothing else should read
+ * collections directly.
  */
 
 /* ------------------------------------------------------------------ */
@@ -18,7 +18,7 @@ export type ID = string;
 export type Slug = string;
 /** ISO-8601 date or datetime. */
 export type ISODate = string;
-/** Rich text from the CMS, already rendered to sanitised HTML. */
+/** Rich text: the Markdown body of an entry, rendered to HTML at build time. */
 export type RichText = string;
 
 export interface Media {
@@ -151,6 +151,8 @@ export interface Experience extends Document {
     deckUrl?: string;
     contact?: Link;
   };
+  /** Sort order on listings. */
+  order: number;
   /** Past experiences & recaps. */
   recap?: {
     title: string;
@@ -230,44 +232,47 @@ export interface Partner {
 /* Pages & modular sections                                            */
 /* ------------------------------------------------------------------ */
 
+/** Heading split into lines; each line is revealed/broken separately. */
+export type Lines = string[];
+/** [label, aside], e.g. ["01 — Our experiences", "Festivals & live"]. `{count}` in the aside is replaced with the item count. */
+export type EyebrowText = [string, string];
+
 /**
- * Each page is an ordered list of sections. Every section maps 1:1 to a
- * component in `src/components/sections`.
+ * Each page is an ordered list of sections, written as `sections:` in the
+ * page's frontmatter (`src/content/pages/*.md`). Every section maps 1:1 to a
+ * component, rendered by `src/components/sections/Sections.astro`.
+ * Sections that list brands, experiences, etc. pull them from their collections.
  */
 export type Section =
-  | { type: "hero"; title: string; scrollHint?: string; media: Media }
-  | { type: "statement"; text: string; eyebrow?: [string, string]; stats?: Stat[] }
+  | { type: "pageHead"; title: string; intro?: string }
+  | { type: "hero"; title: Lines; hint?: string; media: Media }
+  | { type: "statement"; text: string; eyebrow?: EyebrowText; stats?: Stat[] }
   | { type: "brandStack"; brands: ID[]; cta?: Link }
   | {
       type: "experienceCarousel";
-      eyebrow: [string, string];
-      heading: string;
-      items: { title: string; caption: string; media: Media; href: string }[];
+      eyebrow: EyebrowText;
+      heading: Lines;
+      /** How many experiences to show (in `order`). Default: all. */
+      limit?: number;
       statement?: { heading: string; text: string; cta?: Link };
     }
-  | {
-      type: "highlights";
-      eyebrow: [string, string];
-      heading: string;
-      intro?: string;
-      items: { kicker: string; title: string; excerpt: string; media: Media; href: string }[];
-    }
+  | { type: "highlights"; eyebrow: EyebrowText; heading: Lines; intro?: string; featuredOnly?: boolean }
   | { type: "formatList"; heading: string; items: { label: string; href: string; media?: Media }[]; cta?: Link }
-  | {
-      type: "accentBand";
-      eyebrow: string;
-      heading: string;
-      versus: { title: string; caption: string }[];
-      quote: string;
-      text: string;
-    }
-  | { type: "capabilities"; eyebrow: [string, string]; heading: string; products: ID[] }
-  | { type: "brandIndex"; heading: string; brands: ID[]; partners?: ID[] }
-  | { type: "invitation"; heading: string; text: string; cta: Link };
+  | { type: "accentBand"; eyebrow: string; heading: Lines; versus: { title: string; caption: string }[]; quote: string; text: string }
+  | { type: "capabilities"; eyebrow: EyebrowText; heading: Lines; limit?: number }
+  | { type: "brandIndex"; heading: string; show: ("partners" | "brands")[] }
+  | { type: "invitation"; heading: Lines; text: string; cta: Link }
+  | { type: "experienceList"; cta?: Link }
+  | { type: "brandDirectory"; cta?: Link }
+  | { type: "fullBleedImage"; media: Media }
+  | { type: "founderSplit"; lead: string; person: ID; body: string[] }
+  | { type: "philosophy"; title: string; lead: string; body: string[]; footnote?: string }
+  | { type: "contact"; heading: Lines; text: string; cta: Link; meta?: string[] };
+
+export type SectionType = Section["type"];
 
 export interface Page extends Document {
   title: string;
-  intro?: string;
   sections: Section[];
 }
 
@@ -290,8 +295,6 @@ export interface SiteSettings {
   footer: {
     /** Careers, General / Press Contact. */
     company: Link[];
-    /** External Brand Sites. */
-    brandSites: Link[];
     /** Legal, Privacy & Accessibility. */
     legal: Link[];
     copyright: string;

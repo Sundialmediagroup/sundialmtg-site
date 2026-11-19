@@ -1,0 +1,10 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Invitation } from "@/components/sections/Invitation";
+import { PageHead } from "@/components/sections/PageHead";
+---
+
+<BaseLayout title="Page not found" seo={{ noIndex: true }}>
+  <PageHead title="Not found" intro="We couldn’t find that page." />
+  <Invitation heading={["Let’s get you", "back on track."]} text="Head back to the homepage, or explore our brands and experiences." cta={{ label: "Back to home", href: "/" }} />
+</BaseLayout>

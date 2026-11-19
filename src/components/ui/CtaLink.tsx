@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Link as LinkT } from "@/types/content";
 import styles from "./CtaLink.module.scss";
 
@@ -21,8 +20,8 @@ export function CtaLink({ label, href, external, className, as = "a" }: Props) {
       </a>
     );
   return (
-    <Link className={cls} href={href}>
+    <a className={cls} href={href}>
       {inner}
-    </Link>
+    </a>
   );
 }

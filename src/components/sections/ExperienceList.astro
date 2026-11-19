@@ -1,0 +1,24 @@
+---
+import type { Link } from "@/types/content";
+import { getBrands, getExperiences } from "@/lib/content";
+import { CtaLink } from "@/components/ui/CtaLink";
+import { EventAccordion } from "./EventAccordion";
+import styles from "./ExperienceList.module.scss";
+
+type Props = { cta?: Link };
+const { cta } = Astro.props;
+
+const [experiences, brands] = await Promise.all([getExperiences(), getBrands()]);
+const name = new Map(brands.map((b) => [b.id, b.name]));
+---
+
+<section class={styles.section}>
+  <EventAccordion client:visible experiences={experiences.map((e) => ({ ...e, brandName: name.get(e.brand) ?? "" }))} />
+  {
+    cta && (
+      <div class={styles.cta}>
+        <CtaLink {...cta} />
+      </div>
+    )
+  }
+</section>

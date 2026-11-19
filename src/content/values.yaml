@@ -1,0 +1,16 @@
+- id: forever-authentic
+  order: 0
+  title: Forever Authentic
+  description: Trusting the power of lived experiences, shared, and committing to understanding the original expressions of the communities we cultivate.
+- id: purposeful-connection
+  order: 1
+  title: Purposeful Connection
+  description: Pushing the boundaries of culture with fresh, honest stories. True connection is driven by quality, not quantity.
+- id: sacred-spaces
+  order: 2
+  title: Sacred Spaces
+  description: Nurturing vibrant communities where people are invited to connect, share, and participate, and feel heard, affirmed, and ignited by passion.
+- id: individual-power
+  order: 3
+  title: Individual Power
+  description: Uplifting every person as an individual, providing a platform for the voices, talent, and experiences that inspire them to grow.

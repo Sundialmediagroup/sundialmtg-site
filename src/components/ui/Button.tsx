@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { ButtonHTMLAttributes } from "react";
 import styles from "./Button.module.scss";
 
@@ -12,9 +11,9 @@ export function Button(props: AsLink | AsButton) {
   const cls = [styles.button, styles[variant], className].filter(Boolean).join(" ");
   if (props.href !== undefined)
     return (
-      <Link href={props.href} className={cls}>
+      <a href={props.href} className={cls}>
         {children}
-      </Link>
+      </a>
     );
   const rest: Partial<AsButton> = { ...(props as AsButton) };
   delete rest.variant;

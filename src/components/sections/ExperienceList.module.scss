@@ -1,0 +1,9 @@
+@use "abstracts" as *;
+
+.section { @include pad-x; }
+
+.cta {
+  display: flex;
+  justify-content: center;
+  padding-block: section(sm);
+}

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Link as LinkT, SiteSettings } from "@/types/content";
 import { Logo } from "@/components/brand/Logo";
 import styles from "./SiteFooter.module.scss";
@@ -9,16 +8,15 @@ function A({ link }: { link: LinkT }) {
       {link.label}
     </a>
   ) : (
-    <Link href={link.href}>{link.label}</Link>
+    <a href={link.href}>{link.label}</a>
   );
 }
 
-function List({ heading, links }: { heading?: string; links: LinkT[] }) {
+function List({ links, className }: { links: LinkT[]; className?: string }) {
   return (
-    <ul className={styles.list}>
-      {heading && <li className={styles.heading}>{heading}</li>}
+    <ul className={[styles.list, className].filter(Boolean).join(" ")}>
       {links.map((l) => (
-        <li key={l.label}>
+        <li key={`${l.label}${l.href}`}>
           <A link={l} />
         </li>
       ))}
@@ -28,30 +26,21 @@ function List({ heading, links }: { heading?: string; links: LinkT[] }) {
 
 type Props = Pick<SiteSettings, "nav" | "socials" | "footer" | "tagline">;
 
-/** Dark footer: nav · emblem · company/brand sites, full-width wordmark, legal row. */
+/**
+ * Dark footer, as in the prototype: site links · emblem · socials & legal,
+ * then the full-width SUNDIAL letters and a © / tagline row.
+ */
 export function SiteFooter({ nav, socials, footer, tagline }: Props) {
   return (
     <footer className={styles.footer} data-tone="dark">
       <div className={styles.top}>
-        <div className={styles.cols}>
-          <List links={nav} />
-          <List links={[...footer.company, ...socials]} />
-        </div>
+        <List links={[...nav, ...footer.company]} />
         <Logo variant="emblem" className={styles.emblem} />
-        <div className={styles.cols}>
-          <List heading="Our brands" links={footer.brandSites} />
-        </div>
+        <List links={[...socials, ...footer.legal]} className={styles.end} />
       </div>
-      <Logo className={styles.wordmark} title="Sundial" />
+      <Logo variant="word" className={styles.wordmark} title="Sundial" />
       <div className={styles.bottom}>
         <span>{footer.copyright}</span>
-        <ul className={styles.legal}>
-          {footer.legal.map((l) => (
-            <li key={l.label}>
-              <A link={l} />
-            </li>
-          ))}
-        </ul>
         <span>{tagline}</span>
       </div>
     </footer>

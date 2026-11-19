@@ -1,0 +1,21 @@
+---
+/**
+ * One route per file in src/content/pages: `index.md` → `/`, `about.md` → `/about/`.
+ * Add a page by adding a Markdown file there.
+ */
+import type { GetStaticPaths } from "astro";
+import { getPages } from "@/lib/content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Sections from "@/components/sections/Sections.astro";
+
+export const getStaticPaths = (async () => {
+  const pages = await getPages();
+  return pages.map((page) => ({ params: { page: page.id === "index" ? undefined : page.id }, props: { page } }));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={page.title} seo={page.seo}>
+  <Sections sections={page.sections} />
+</BaseLayout>

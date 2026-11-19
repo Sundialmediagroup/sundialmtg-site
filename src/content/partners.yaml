@@ -1,0 +1,32 @@
+- id: gbef
+  order: 0
+  name: Global Black Economic Forum
+  logo:
+    src: /logos/gbef.png
+    alt: Global Black Economic Forum
+  url: http://www.gbef.com/
+  kind: forum
+- id: nvf
+  order: 1
+  name: New Voices Foundation
+  logo:
+    src: /logos/nvf.png
+    alt: New Voices Foundation
+  url: http://www.newvoicesfoundation.org/
+  kind: foundation
+- id: nvfund
+  order: 2
+  name: New Voices Fund
+  logo:
+    src: /logos/nvfund.png
+    alt: New Voices Fund
+  url: http://www.newvoicesfund.com/
+  kind: fund
+- id: soko
+  order: 3
+  name: ESSENCE SokoMrkt
+  logo:
+    src: /logos/soko.png
+    alt: ESSENCE SokoMrkt
+  url: https://www.essence.com/sokomrkt/
+  kind: marketplace

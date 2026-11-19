@@ -1,0 +1,46 @@
+site:
+  name: Sundial Media & Technology Group
+  tagline: Belonging begins here
+  nav:
+    - label: Products
+      href: /products/
+    - label: Brands
+      href: /brands/
+    - label: Experiences
+      href: /experiences/
+    - label: Our Work
+      href: /our-work/
+    - label: Insights
+      href: /insights/
+    - label: About
+      href: /about/
+  primaryAction:
+    label: Partner with us
+    href: /partner/
+  socials:
+    - label: Instagram
+      href: https://instagram.com/
+      external: true
+    - label: LinkedIn
+      href: https://www.linkedin.com/
+      external: true
+    - label: YouTube
+      href: https://youtube.com/
+      external: true
+  footer:
+    company:
+      - label: Careers
+        href: /careers/
+      - label: Press & contact
+        href: /partner/
+    legal:
+      - label: Legal
+        href: https://sundialmg.com/privacy
+        external: true
+      - label: Privacy
+        href: https://sundialmg.com/privacy
+        external: true
+      - label: Accessibility
+        href: /accessibility/
+    copyright: © 2026 Sundial Media Group
+  contactEmail: sundialmg.com/contact

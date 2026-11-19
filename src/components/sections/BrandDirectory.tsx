@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
 import type { Brand, Link } from "@/types/content";
 import { CtaLink } from "@/components/ui/CtaLink";

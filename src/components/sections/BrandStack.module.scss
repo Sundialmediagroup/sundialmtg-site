@@ -1,19 +1,51 @@
 @use "abstracts" as *;
 
 // Vertical stack of brand tiles: logo on sand, swaps to photo when centered.
-.section { @include pad-x; padding-bottom: 40px; }
+.section {
+  @include pad-x;
+  padding-bottom: 40px;
+  --tile: clamp(240px, 27vw, 460px);
+
+  // Mobile: 62vw tiles (as in the prototype), but never so wide that the side labels
+  // get less than 70px, which is the longest single word ("UNBOTHERED", ~68px at 10px), so names never break mid-word.
+  @include mq(md) { --tile: min(62vw, 100vw - 2 * (var(--side) + #{space(2)} + 70px)); }
+}
+
+.body { position: relative; }
+
+// Active brand name (left) and category (right), pinned at mid-screen while the stack scrolls.
+.labels {
+  position: sticky;
+  top: 50vh;
+  z-index: 3;
+  height: 0;
+  pointer-events: none;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    gap: space(4);
+    transform: translateY(-50%);
+    @include type(label);
+  }
+
+  @include mq(md) {
+    > div { font-size: 10px; }
+    // The gutter beside the tile, minus page padding and a small gap.
+    span { max-width: calc((100vw - var(--tile)) / 2 - var(--side) - #{space(2)}); line-height: 1.25; }
+    span + span { text-align: right; }
+  }
+}
 
 .col { display: grid; gap: space(3); justify-items: center; }
 
 .tile {
   position: relative;
   display: block;
-  width: clamp(240px, 27vw, 460px);
+  width: var(--tile);
   aspect-ratio: 3 / 2;
   overflow: hidden;
   background: color(placeholder-alt);
-
-  @include mq(md) { width: 62vw; }
 }
 
 .logo {

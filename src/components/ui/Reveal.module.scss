@@ -13,6 +13,6 @@
   }
 }
 
-.in .line > span { transform: none; }
-.in .line:nth-child(2) > span { transition-delay: 0.09s; }
-.in .line:nth-child(3) > span { transition-delay: 0.18s; }
+[data-in] > .line > span { transform: none; }
+[data-in] > .line:nth-child(2) > span { transition-delay: 0.09s; }
+[data-in] > .line:nth-child(3) > span { transition-delay: 0.18s; }

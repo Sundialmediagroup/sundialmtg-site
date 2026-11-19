@@ -1,6 +1,3 @@
-"use client";
-
-import Link from "next/link";
 import { useRef, useState } from "react";
 import type { Link as LinkT, Media } from "@/types/content";
 import { CtaLink } from "@/components/ui/CtaLink";
@@ -24,10 +21,10 @@ export function FormatList({ heading, items, cta }: Props) {
       <ul className={styles.list} onMouseMove={move} onMouseLeave={() => setCurrent(null)}>
         {items.map((f) => (
           <li key={f.label}>
-            <Link href={f.href} className={styles.row} onMouseEnter={() => setCurrent(f.media ?? null)}>
+            <a href={f.href} className={styles.row} onMouseEnter={() => setCurrent(f.media ?? null)}>
               <span>{f.label}</span>
               <small aria-hidden>↗</small>
-            </Link>
+            </a>
           </li>
         ))}
       </ul>

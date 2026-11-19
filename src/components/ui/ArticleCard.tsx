@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Media } from "@/types/content";
 import { CtaLink } from "./CtaLink";
 import { MediaFrame } from "./MediaFrame";
@@ -8,7 +7,7 @@ type Props = { kicker: string; title: string; excerpt: string; media: Media; hre
 
 export function ArticleCard({ kicker, title, excerpt, media, href, cta = "Read the story" }: Props) {
   return (
-    <Link href={href} className={styles.card}>
+    <a href={href} className={styles.card}>
       <MediaFrame media={media} ratio="fill" sizes="(max-width: 560px) 100vw, 50vw" imgClassName={styles.img} />
       <div className={styles.content}>
         <span className={styles.kicker}>{kicker}</span>
@@ -16,6 +15,6 @@ export function ArticleCard({ kicker, title, excerpt, media, href, cta = "Read t
         <p className={styles.excerpt}>{excerpt}</p>
         <CtaLink as="span" label={cta} href={href} className={styles.cta} />
       </div>
-    </Link>
+    </a>
   );
 }

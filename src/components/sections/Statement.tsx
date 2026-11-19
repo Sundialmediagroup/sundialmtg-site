@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
 import type { Stat } from "@/types/content";
 import { Eyebrow } from "@/components/ui/Eyebrow";

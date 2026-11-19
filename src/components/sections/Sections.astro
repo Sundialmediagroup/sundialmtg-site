@@ -1,0 +1,110 @@
+---
+/**
+ * Renders a page's `sections:` frontmatter, one component per section type.
+ * Interactive components are hydrated here (`client:*`); everything else ships as plain HTML.
+ */
+import type { EyebrowText, Section } from "@/types/content";
+import { getBrands, getCaseStudies, getExperiences, getPartners, getPeople, getProducts, getValues } from "@/lib/content";
+import { FounderSplit, FullBleedImage, Philosophy } from "./About";
+import { AccentBand } from "./AccentBand";
+import { BrandDirectory } from "./BrandDirectory";
+import { BrandIndex } from "./BrandIndex";
+import { BrandStack } from "./BrandStack";
+import { Capabilities } from "./Capabilities";
+import { ContactBlock } from "./ContactBlock";
+import ExperienceList from "./ExperienceList.astro";
+import { ExperienceCarousel } from "./ExperienceCarousel";
+import { FormatList } from "./FormatList";
+import { Hero } from "./Hero";
+import { Highlights } from "./Highlights";
+import { Invitation } from "./Invitation";
+import { PageHead } from "./PageHead";
+import { Statement } from "./Statement";
+
+type Props = { sections: Section[] };
+const { sections } = Astro.props;
+
+const [brands, experiences, products, caseStudies, partners, people, values] = await Promise.all([
+  getBrands(),
+  getExperiences(),
+  getProducts(),
+  getCaseStudies(),
+  getPartners(),
+  getPeople(),
+  getValues(),
+]);
+const brandById = new Map(brands.map((b) => [b.id, b]));
+
+/** Replace `{count}` in the eyebrow aside. */
+const withCount = ([label, aside]: EyebrowText, count: number): EyebrowText => [label, aside.replaceAll("{count}", String(count))];
+
+function find<T extends { id: string }>(items: T[], id: string, kind: string): T {
+  const item = items.find((i) => i.id === id);
+  if (!item) throw new Error(`Unknown ${kind} "${id}"`);
+  return item;
+}
+---
+
+{
+  sections.map((s) => {
+    switch (s.type) {
+      case "pageHead":
+        return <PageHead title={s.title} intro={s.intro} />;
+      case "hero":
+        return <Hero title={s.title} media={s.media} hint={s.hint} />;
+      case "statement":
+        return <Statement client:visible text={s.text} eyebrow={s.eyebrow} stats={s.stats} />;
+      case "brandStack":
+        return <BrandStack client:visible brands={s.brands.map((id) => find(brands, id, "brand"))} cta={s.cta} />;
+      case "experienceCarousel":
+        return (
+          <ExperienceCarousel
+            client:visible
+            eyebrow={s.eyebrow}
+            heading={s.heading}
+            items={experiences.slice(0, s.limit).map((e) => ({
+              title: e.name,
+              caption: `${e.format} · ${brandById.get(e.brand)?.name ?? e.location}`,
+              media: e.hero,
+              href: `/experiences/#${e.slug}`,
+            }))}
+            statement={s.statement}
+          />
+        );
+      case "highlights": {
+        const items = s.featuredOnly ? caseStudies.filter((c) => c.featured) : caseStudies;
+        return <Highlights eyebrow={withCount(s.eyebrow, items.length)} heading={s.heading} intro={s.intro} items={items} />;
+      }
+      case "formatList":
+        return <FormatList client:visible heading={s.heading} items={s.items} cta={s.cta} />;
+      case "accentBand":
+        return <AccentBand eyebrow={s.eyebrow} heading={s.heading} versus={s.versus} quote={s.quote} text={s.text} />;
+      case "capabilities": {
+        const items = products.slice(0, s.limit);
+        return <Capabilities eyebrow={withCount(s.eyebrow, items.length)} heading={s.heading} products={items} />;
+      }
+      case "brandIndex": {
+        const entries = s.show.flatMap((kind) =>
+          kind === "partners"
+            ? partners.map((p) => ({ id: p.id, name: p.name, href: p.url, logo: p.logo, external: true }))
+            : brands.map((b) => ({ id: b.id, name: b.name, href: `/brands/#${b.slug}`, logo: b.logo })),
+        );
+        return <BrandIndex client:visible heading={s.heading} entries={entries} />;
+      }
+      case "invitation":
+        return <Invitation heading={s.heading} text={s.text} cta={s.cta} />;
+      case "experienceList":
+        return <ExperienceList cta={s.cta} />;
+      case "brandDirectory":
+        return <BrandDirectory client:visible brands={brands} cta={s.cta} />;
+      case "fullBleedImage":
+        return <FullBleedImage media={s.media} />;
+      case "founderSplit":
+        return <FounderSplit lead={s.lead} person={find(people, s.person, "person")} body={s.body} />;
+      case "philosophy":
+        return <Philosophy title={s.title} lead={s.lead} body={s.body} footnote={s.footnote} values={values} />;
+      case "contact":
+        return <ContactBlock heading={s.heading} text={s.text} cta={s.cta} meta={s.meta} />;
+    }
+  })
+}
