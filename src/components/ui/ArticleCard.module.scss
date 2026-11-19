@@ -1,0 +1,50 @@
+@use "abstracts" as *;
+
+// Full-bleed story card: image + bottom gradient + centered kicker/title/excerpt.
+.card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  max-height: calc(100vh - 32px);
+  width: 100%;
+  overflow: hidden;
+  color: color(on-accent);
+  background: color(placeholder);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgba(14, 13, 12, 0.82) 0%, rgba(14, 13, 12, 0.5) 30%, rgba(14, 13, 12, 0.08) 58%, transparent 72%);
+    pointer-events: none;
+  }
+
+  &:hover .img { transform: scale(1.03); }
+}
+
+.img { transition: transform duration(media) var(--ease); }
+
+.content {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  padding: clamp(22px, 3vw, 48px);
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  text-align: center;
+}
+
+.kicker { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.8; }
+
+.title {
+  font-size: clamp(22px, 2.3vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.excerpt { @include type(body-sm); max-width: 46ch; opacity: 0.85; }
+.cta { margin-top: space(1); }

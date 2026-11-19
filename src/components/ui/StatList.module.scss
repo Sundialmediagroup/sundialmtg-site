@@ -1,0 +1,25 @@
+@use "abstracts" as *;
+
+// Inline stats (brand page): "8.5M / Readership".
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space(2) space(6);
+  font-size: 13px;
+
+  .value { display: block; font-size: 18px; }
+  .label { color: color(mute); }
+}
+
+// Big ruled stats (home portfolio): "190M+ / People connected".
+.feature {
+  @include grid(3);
+  @include rule-top;
+  padding-top: 18px;
+
+  .value { @include type(stat-lg); display: block; }
+  .value i { font-style: normal; color: color(accent); }
+  .label { display: block; margin-top: 14px; max-width: 26ch; }
+
+  @include mq(sm) { grid-template-columns: 1fr; row-gap: 34px; }
+}

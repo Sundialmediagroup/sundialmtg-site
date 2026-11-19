@@ -1,0 +1,14 @@
+@use "abstracts" as *;
+
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+  gap: space(4);
+  flex-wrap: wrap;
+  margin-bottom: clamp(18px, 2.4vw, 34px);
+  @include type(label);
+}
+
+.aside { color: color(mute); }
+
+.onDark .aside { color: color(mute-on-dark); }

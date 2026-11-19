@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "../tokens" as t;
+
+/// Semantic color as a CSS custom property reference.
+@function color($name) {
+  @if not map.has-key(t.$colors, $name) { @error "Unknown color `#{$name}`."; }
+  @return var(--color-#{$name});
+}
+
+/// Spacing step.
+@function space($step) {
+  @if not map.has-key(t.$space, "#{$step}") { @error "Unknown space step `#{$step}`."; }
+  @return var(--space-#{$step});
+}
+
+/// Fluid section spacing.
+@function section($size) {
+  @return var(--section-#{$size});
+}
+
+@function duration($name) {
+  @return map.get(t.$duration, $name);
+}
+
+@function z($layer) {
+  @return map.get(t.$z, $layer);
+}

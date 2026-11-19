@@ -1,0 +1,10 @@
+@use "sass:map";
+@use "abstracts" as *;
+
+@each $name, $_ in $type-styles {
+  .#{$name} { @include type($name); }
+}
+
+.heading-lg {
+  @include mq(sm) { font-size: 28px; }
+}

@@ -1,0 +1,37 @@
+@use "sass:map";
+// ---------------------------------------------------------------------------
+// Color tokens
+// Palette: warm off-white, near-black, solar orange as a rare signal.
+// ---------------------------------------------------------------------------
+
+$palette: (
+  "bone": #f1ece3,    // page background / light text on dark
+  "paper": #f7f3ec,   // lightest ground
+  "ink": #0e0d0c,     // text + dark sections
+  "solar": #bf3504,   // accent — use sparingly
+  "solar-hover": #d24310,
+  "sand": #e5ded2,    // media placeholder
+  "stone": #d9d2c6,   // media placeholder (alt)
+  "white": #ffffff,
+);
+
+// Semantic roles → what components should reference.
+$colors: (
+  "bg": map.get($palette, "bone"),
+  "paper": map.get($palette, "paper"),
+  "ink": map.get($palette, "ink"),
+  "dark": map.get($palette, "ink"),
+  "light": map.get($palette, "bone"),
+  "accent": map.get($palette, "solar"),
+  "accent-hover": map.get($palette, "solar-hover"),
+  "on-accent": map.get($palette, "white"),
+  "soft": rgba(14, 13, 12, 0.28),  // de-emphasised display text
+  "mute": rgba(14, 13, 12, 0.5),   // secondary text
+  "rule": rgba(14, 13, 12, 0.22),  // hairlines
+  "rule-on-dark": rgba(241, 236, 227, 0.22),
+  "mute-on-dark": rgba(241, 236, 227, 0.6),
+  "rule-on-accent": rgba(255, 255, 255, 0.45),
+  "placeholder": map.get($palette, "stone"),
+  "placeholder-alt": map.get($palette, "sand"),
+  "scrim": rgba(14, 13, 12, 0.55),
+);

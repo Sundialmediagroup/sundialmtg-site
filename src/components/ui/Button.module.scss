@@ -1,0 +1,31 @@
+@use "abstracts" as *;
+
+// Pill button — not in the prototype's page UI yet; derived from its toolbars
+// for forms (Partner With Us) and the primary nav action.
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: space(2);
+  padding: 12px 20px;
+  border-radius: 999px;
+  @include type(label);
+  letter-spacing: 0.04em;
+  transition: background duration(fast), color duration(fast), border-color duration(fast);
+}
+
+.primary {
+  background: color(accent);
+  color: color(on-accent);
+  @include hover { background: color(accent-hover); }
+}
+
+.secondary {
+  background: color(ink);
+  color: color(light);
+  @include hover { background: color(accent); }
+}
+
+.outline {
+  border: 1px solid currentColor;
+  @include hover { color: color(accent); }
+}

@@ -1,0 +1,41 @@
+@use "abstracts" as *;
+
+// Solar orange band — the one loud moment per page.
+.band {
+  @include pad-x;
+  margin-top: section(xl);
+  padding-top: clamp(80px, 10vw, 160px);
+  padding-bottom: clamp(80px, 10vw, 160px);
+  background: color(accent);
+  color: color(on-accent);
+  --mark: var(--color-on-accent);
+}
+
+.eyebrow { @include type(label); opacity: 0.8; }
+.title { @include type(display-lg); margin-top: clamp(20px, 3vw, 40px); }
+
+.versus {
+  @include grid(2);
+  margin-top: clamp(50px, 6vw, 100px);
+  @include mq(sm) { grid-template-columns: 1fr; }
+
+  div { border-top: 1px solid color(rule-on-accent); padding-top: space(4); display: grid; gap: 6px; }
+  b { @include type(heading-md); }
+  span { font-size: clamp(17px, 1.5vw, 24px); opacity: 0.85; }
+}
+
+.text {
+  @include grid;
+  margin-top: section(sm);
+
+  q {
+    grid-column: 1 / 6;
+    font-size: clamp(20px, 1.8vw, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    quotes: "“" "”";
+  }
+  p { grid-column: 7 / 12; }
+
+  @include mq(md) { q, p { grid-column: 1 / -1; } }
+}

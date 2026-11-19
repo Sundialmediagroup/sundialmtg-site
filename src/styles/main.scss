@@ -1,0 +1,6 @@
+// Global entry — imported once in app/layout.tsx.
+// Components import `@use "abstracts" as *;` in their own .module.scss.
+@use "base/fonts";
+@use "base/root";
+@use "base/reset";
+@use "base/utilities";

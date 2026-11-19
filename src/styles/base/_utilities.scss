@@ -1,0 +1,13 @@
+@use "sass:map";
+@use "../abstracts" as *;
+
+// Type utilities: .t-display-xl, .t-heading-lg, .t-label, ...
+@each $name, $_ in $type-styles {
+  .t-#{$name} { @include type($name); }
+}
+
+.u-mute { color: color(mute); }
+.u-accent { color: color(accent); }
+.u-pad { @include pad-x; }
+.u-grid { @include grid; }
+.u-sr-only { @include visually-hidden; }

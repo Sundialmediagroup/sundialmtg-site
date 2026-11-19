@@ -1,0 +1,16 @@
+@use "abstracts" as *;
+
+.link {
+  display: inline-flex;
+  gap: 14px;
+  align-items: center;
+  @include type(cta);
+  transition: color duration(fast);
+
+  @include hover { color: color(accent); }
+}
+
+.label {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}

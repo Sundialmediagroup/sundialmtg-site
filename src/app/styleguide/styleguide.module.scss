@@ -1,0 +1,67 @@
+@use "abstracts" as *;
+
+.page { padding-top: var(--nav-height); }
+
+.block {
+  @include pad-x;
+  padding-top: section(md);
+}
+
+.blockTitle {
+  display: flex;
+  justify-content: space-between;
+  @include type(label);
+  @include rule-top(ink);
+  padding-top: space(3);
+  margin-bottom: space(7);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--gutter);
+}
+
+.swatch {
+  display: grid;
+  gap: space(2);
+  font-size: 12px;
+
+  i {
+    display: block;
+    aspect-ratio: 3 / 2;
+    border: 1px solid color(rule);
+  }
+  code { color: color(mute); }
+}
+
+.typeRow {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--gutter);
+  align-items: baseline;
+  padding: space(4) 0;
+  border-bottom: 1px solid color(rule);
+
+  code { @include type(label); color: color(mute); }
+  @include mq(sm) { grid-template-columns: 1fr; }
+}
+
+.spaceRow {
+  display: flex;
+  align-items: center;
+  gap: space(4);
+  font-size: 12px;
+  margin-bottom: space(2);
+
+  i { display: block; height: 12px; background: color(accent); }
+  code { width: 120px; color: color(mute); }
+}
+
+.demoRow { display: flex; flex-wrap: wrap; gap: space(6); align-items: center; }
+.dark { @include surface-dark; padding: space(7); }
+.cards { @include grid(3); @include mq(sm) { grid-template-columns: 1fr; } }
+.note { @include type(label); color: color(mute); margin-top: space(4); }
+.flush { margin-inline: calc(-1 * max(var(--side), var(--safe-l))); }
+.mark { width: 240px; }
+.emblem { width: 90px; }

@@ -1,0 +1,24 @@
+// ---------------------------------------------------------------------------
+// Breakpoints & layering
+// Desktop-first, matching the prototype.
+// ---------------------------------------------------------------------------
+
+$breakpoints: (
+  "sm": 560px,  // phone
+  "md": 820px,  // tablet / collapsed nav
+);
+
+$z: (
+  "base": 0,
+  "raised": 3,
+  "peek": 55,
+  "nav": 60,
+  "menu": 66,
+);
+
+$nav-height: 110px; // clearance for the fixed nav
+$aspect: (
+  "portrait": "4 / 5",
+  "landscape": "3 / 2",
+  "photo": "4 / 3",
+);

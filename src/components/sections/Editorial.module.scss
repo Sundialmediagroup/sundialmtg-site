@@ -1,0 +1,37 @@
+@use "abstracts" as *;
+
+.section { padding-top: section(xl); }
+.head { @include pad-x; }
+
+/* Indented statement under the carousel */
+.indent {
+  @include pad-x;
+  @include grid;
+  padding-top: clamp(90px, 11vw, 190px);
+
+  h2 { grid-column: 1 / -1; text-indent: 25%; @include mq(md) { text-indent: 12%; } }
+}
+
+.indentText, .indentCta { margin-top: section(sm); }
+.indentText { grid-column: 7 / 10; }
+.indentCta { grid-column: 11 / 13; justify-self: end; align-self: start; white-space: nowrap; }
+
+@include mq(md) {
+  .indentText, .indentCta { grid-column: 1 / -1; justify-self: start; margin-top: 24px; }
+}
+
+/* Highlights */
+.highlights { @include pad-x; padding-top: section(xl); }
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  flex-wrap: wrap;
+  p { max-width: 36ch; }
+}
+.pair {
+  @include grid(2);
+  margin-top: clamp(30px, 4vw, 60px);
+  @include mq(sm) { grid-template-columns: 1fr; }
+}

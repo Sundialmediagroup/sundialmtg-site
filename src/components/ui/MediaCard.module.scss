@@ -1,0 +1,47 @@
+@use "abstracts" as *;
+
+// Portrait image card with a caption that appears on hover (always on for touch).
+.card {
+  position: relative;
+  display: block;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgba(14, 13, 12, 0.55), rgba(14, 13, 12, 0.2) 38%, transparent 64%);
+    opacity: 0;
+    transition: opacity duration(base);
+    pointer-events: none;
+  }
+
+  &:hover::after, &:focus-visible::after { opacity: 1; }
+  &:hover .img { transform: scale(1.03); }
+  &:hover .caption, &:focus-visible .caption { opacity: 1; transform: none; }
+
+  @media (hover: none) {
+    &::after { opacity: 1; }
+    .caption { opacity: 1; transform: none; }
+  }
+}
+
+.img { transition: transform duration(media) var(--ease); }
+
+.caption {
+  position: absolute;
+  left: space(4);
+  bottom: space(4);
+  z-index: 2;
+  max-width: 72%;
+  color: color(on-accent);
+  font-size: 13px;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.4s var(--ease);
+  pointer-events: none;
+
+  b { display: block; text-transform: uppercase; letter-spacing: 0.02em; }
+  span { opacity: 0.78; }
+}

@@ -1,0 +1,25 @@
+@use "abstracts" as *;
+
+.section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 120px max(var(--side), var(--safe-r)) 60px max(var(--side), var(--safe-l));
+}
+
+.title { font-size: clamp(28px, 3vw, 52px); line-height: 1.1; letter-spacing: -0.02em; }
+.text { max-width: 46ch; margin: 18px auto 0; color: color(mute); }
+
+.mail {
+  display: inline-block;
+  margin-top: 26px;
+  @include type(heading-md);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s, color 0.3s;
+  @include hover { border-color: currentColor; color: color(accent); }
+}
+
+.meta { @include type(label); margin-top: 22px; }
+.slot { margin-top: section(sm); width: min(100%, 640px); margin-inline: auto; text-align: left; }

@@ -1,0 +1,42 @@
+@use "abstracts" as *;
+
+/* Full-bleed image */
+.full {
+  position: relative;
+  height: clamp(380px, 70vh, 820px);
+  overflow: hidden;
+  margin-top: section(sm);
+}
+
+/* Lead + founder split */
+.story { @include pad-x; }
+.lead { padding-top: section(sm); @include type(lead); max-width: 36ch; }
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 70px);
+  padding-top: section(sm);
+  @include mq(md) { grid-template-columns: 1fr; }
+}
+
+.splitText { display: grid; gap: 22px; align-content: start; max-width: 46ch; }
+.person { @include type(label); }
+.quote { @include type(heading-sm); }
+
+/* Philosophy / values */
+.philosophy {
+  @include pad-x;
+  display: grid;
+  grid-template-columns: 40% 1fr 1fr;
+  gap: clamp(20px, 3vw, 50px);
+  padding-top: clamp(80px, 10vw, 170px);
+  @include mq(md) { grid-template-columns: 1fr; }
+}
+
+.philTitle { @include type(display-lg); }
+.col { display: grid; gap: 22px; align-content: start; }
+.colLead { @include type(heading-sm); }
+.value h3 { font-size: 17px; }
+.value p { margin-top: space(1); color: color(mute); }
+.footnote { @include type(label); color: color(mute); margin-top: 10px; }

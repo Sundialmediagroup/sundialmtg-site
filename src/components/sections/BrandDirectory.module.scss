@@ -1,0 +1,41 @@
+@use "abstracts" as *;
+
+// Brands overview: sticky image column + scrolling brand entries.
+.section {
+  @include pad-x;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: clamp(30px, 6vw, 110px);
+  padding-top: clamp(50px, 7vw, 110px);
+  padding-bottom: clamp(60px, 8vw, 140px);
+
+  @include mq(md) { grid-template-columns: 1fr; }
+}
+
+.sticky {
+  position: sticky;
+  top: var(--nav-height);
+  align-self: start;
+  aspect-ratio: 4 / 3;
+  max-width: 420px;
+  overflow: hidden;
+
+  > span { opacity: 0; transition: opacity 0.6s var(--ease); }
+  > span.on { opacity: 1; }
+
+  @include mq(md) { display: none; }
+}
+
+.items { display: grid; gap: clamp(70px, 9vw, 150px); }
+
+.item {
+  display: grid;
+  gap: 18px;
+  max-width: 560px;
+  scroll-margin-top: 120px;
+}
+
+.inlineMedia { display: none; @include mq(md) { display: block; } }
+.meta { @include type(label); color: color(mute); }
+.name { font-size: clamp(26px, 2.6vw, 44px); line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }
+.territory { @include type(heading-sm); }

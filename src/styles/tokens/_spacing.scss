@@ -1,0 +1,27 @@
+// ---------------------------------------------------------------------------
+// Spacing tokens
+// Fixed steps for component internals, fluid steps for section rhythm.
+// ---------------------------------------------------------------------------
+
+$space: (
+  "1": 4px,
+  "2": 8px,
+  "3": 12px,
+  "4": 16px,  // grid gutter
+  "5": 22px,
+  "6": 26px,
+  "7": 40px,
+  "8": 60px,
+);
+
+// Vertical section rhythm (fluid).
+$section-space: (
+  "sm": clamp(40px, 5vw, 80px),
+  "md": clamp(70px, 9vw, 150px),
+  "lg": clamp(90px, 11vw, 180px),
+  "xl": clamp(100px, 12vw, 200px),
+);
+
+$gutter: 16px;
+$side: clamp(16px, 2.8vw, 40px);  // page side padding
+$columns: 12;

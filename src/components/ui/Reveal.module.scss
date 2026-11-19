@@ -1,0 +1,18 @@
+@use "abstracts" as *;
+
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+
+  > span {
+    display: block;
+    transform: translateY(108%);
+    transition: transform duration(reveal) var(--ease);
+  }
+}
+
+.in .line > span { transform: none; }
+.in .line:nth-child(2) > span { transition-delay: 0.09s; }
+.in .line:nth-child(3) > span { transition-delay: 0.18s; }

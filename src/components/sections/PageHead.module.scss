@@ -1,0 +1,14 @@
+@use "abstracts" as *;
+
+.head {
+  @include pad-x;
+  padding-top: clamp(110px, 12vw, 190px);
+}
+
+.title { @include type(display-xl); }
+
+.intro {
+  margin-top: 22px;
+  max-width: 62ch;
+  font-size: clamp(15px, 1.2vw, 18px);
+}

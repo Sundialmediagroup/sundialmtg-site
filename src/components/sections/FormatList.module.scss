@@ -1,0 +1,35 @@
+@use "abstracts" as *;
+
+.section { @include pad-x; padding-top: section(xl); }
+.title { @include type(display-xl); text-align: right; }
+
+.list { margin-top: 28px; @include rule-top; }
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid color(rule);
+  @include type(heading-md);
+  transition: padding 0.45s var(--ease), color 0.3s;
+
+  small { font-size: 12px; letter-spacing: 0.04em; color: color(mute); }
+  @include hover { padding-left: space(4); color: color(accent); }
+}
+
+.more { display: flex; justify-content: flex-end; margin-top: 26px; }
+
+// Cursor-following image preview
+.peek {
+  position: fixed;
+  left: 0; top: 0;
+  z-index: z(peek);
+  width: clamp(200px, 18vw, 300px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  @media (hover: none) { display: none; }
+}
+.peekOn { opacity: 1; }

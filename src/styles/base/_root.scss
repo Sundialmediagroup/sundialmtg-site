@@ -1,0 +1,31 @@
+@use "sass:map";
+@use "../tokens" as t;
+
+// Emit every token as a CSS custom property so components (and the CMS-driven
+// theme overrides later) can reference them at runtime.
+:root {
+  color-scheme: light;
+
+  @each $name, $value in t.$colors {
+    --color-#{$name}: #{$value};
+  }
+  @each $step, $value in t.$space {
+    --space-#{$step}: #{$value};
+  }
+  @each $size, $value in t.$section-space {
+    --section-#{$size}: #{$value};
+  }
+
+  @each $name, $style in t.$type-styles {
+    --type-#{$name}: #{map.get($style, size)};
+  }
+
+  --font: #{t.$font-family};
+  --side: #{t.$side};
+  --gutter: #{t.$gutter};
+  --ease: #{t.$ease};
+  --safe-l: max(16px, env(safe-area-inset-left, 0px));
+  --safe-r: max(16px, env(safe-area-inset-right, 0px));
+  --nav-height: #{t.$nav-height};
+  --mark: currentColor;
+}

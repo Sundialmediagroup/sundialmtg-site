@@ -1,0 +1,37 @@
+@use "abstracts" as *;
+
+.track {
+  margin-top: clamp(40px, 5vw, 80px);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  @include pad-x;
+  scroll-padding-left: max(var(--side), var(--safe-l));
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+.dragging { cursor: grabbing; scroll-snap-type: none; a { pointer-events: none; } }
+
+.row { display: flex; gap: var(--gutter); width: max-content; }
+
+.slide {
+  flex: 0 0 auto;
+  width: calc((100vw - 2 * var(--side) - 32px) / 3);
+  scroll-snap-align: start;
+  &:last-child { margin-right: max(var(--side), var(--safe-r)); }
+
+  @include mq(md) { width: calc((100vw - 2 * var(--side) - 16px) / 2); }
+  @include mq(sm) { width: 80vw; }
+}
+
+.progress {
+  position: relative;
+  height: 1px;
+  margin: 18px max(var(--side), var(--safe-r)) 0 max(var(--side), var(--safe-l));
+  background: color(rule);
+
+  i { position: absolute; left: 0; top: 0; height: 1px; background: color(ink); }
+}

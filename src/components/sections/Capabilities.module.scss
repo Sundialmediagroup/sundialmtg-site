@@ -1,0 +1,32 @@
+@use "abstracts" as *;
+
+.section { @include pad-x; padding-top: section(xl); }
+.heading { max-width: 20ch; }
+
+.grid {
+  @include grid(4);
+  margin-top: clamp(50px, 6vw, 100px);
+  @include mq(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+  @include mq(sm) { grid-template-columns: 1fr; }
+}
+
+.item {
+  @include rule-top(ink);
+  padding-top: space(4);
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
+.index { @include type(label); color: color(mute); }
+.name { @include type(title); }
+.tagline { @include type(subtitle); }
+.summary { @include type(body-sm); color: color(mute); }
+
+.offerings {
+  display: grid;
+  gap: space(1);
+  @include type(label);
+  @include rule-top;
+  padding-top: space(3);
+}

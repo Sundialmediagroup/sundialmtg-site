@@ -1,0 +1,28 @@
+@use "abstracts" as *;
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  @include surface-dark;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  align-content: end;
+  justify-items: center;
+  text-align: center;
+  padding: var(--nav-height) max(var(--side), var(--safe-r)) calc(env(safe-area-inset-bottom, 0px) + 26px) max(var(--side), var(--safe-l));
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(14, 13, 12, 0.62) 0%, rgba(14, 13, 12, 0.28) 34%, rgba(14, 13, 12, 0.06) 62%, rgba(14, 13, 12, 0.18) 100%);
+  }
+}
+
+.media { position: absolute; inset: 0; }
+.media video { @include cover; }
+
+.title, .hint { position: relative; z-index: 1; }
+.title { @include type(display-md); }
+.hint { margin-top: 22px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }

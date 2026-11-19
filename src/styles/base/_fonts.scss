@@ -1,0 +1,8 @@
+// Helvetica Neue Light from the local system; falls back through the stack.
+// TODO: replace with a licensed webfont before launch.
+@font-face {
+  font-family: "HL";
+  font-weight: 300;
+  font-display: swap;
+  src: local("HelveticaNeue-Light"), local("Helvetica Neue Light"), local("Helvetica-Light"), local("Helvetica Light");
+}
