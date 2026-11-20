@@ -34,3 +34,15 @@ Use the Linear branch names, e.g. `davepullen/sun-1127-scaffold-the-smg-website-
 - Styles: every `.module.scss` begins `@use "abstracts" as *;`. Use `type()`, `color()`, `space()`, `section()` and `mq()`, and never hard-code a token value. Tokens live only in `src/styles/tokens/`, and TS reads them through the CSS custom properties in `base/_root.scss`.
 - `npm run build` runs `astro check` first. Run it and `npm run lint` before calling work done.
 - Prototype source: https://claude.ai/artifact/5YL12k9uoVSRzKLKeGyeMG. The scroll-driven "universe" splash intro is intentionally out of scope.
+
+## Agent skills
+
+Skills live in `.agents/skills/` (symlinked into `.claude/skills/`). `.agents/skills/README.md` lists their sources.
+
+- `edit-content`: any change under `src/content/`, or a new section type or field.
+- `match-prototype`: comparing with or porting from the prototype.
+- `docs-lookup`: Astro APIs. This is Astro 7, so don't trust memory; use the `astro-docs` MCP server (`.mcp.json`).
+- `content-collection`: collection schemas and queries.
+- `frontend-design`: new UI the prototype doesn't cover. **The prototype is the brief and wins.** Its uppercase labels, `A · B` meta strings, `01 —` eyebrows and near-black surfaces are deliberate, so don't "fix" them as generic traits.
+- `vercel-composition-patterns`: React component structure.
+- `review-animations` / `improve-animations`: motion review and audits. The reveals and crossfades are marketing motion, which their own standards allow to run longer than the 300ms UI budget.
